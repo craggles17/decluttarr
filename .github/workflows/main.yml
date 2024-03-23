@@ -62,6 +62,4 @@ jobs:
             --label com.decluttarr.commit=$SHORT_COMMIT_ID \
             --build-arg IMAGE_TAG=$IMAGE_TAG \
             --build-arg SHORT_COMMIT_ID=$SHORT_COMMIT_ID \
-            # -f docker/Dockerfile \
-            # --push \
-            # .
+            --push \
