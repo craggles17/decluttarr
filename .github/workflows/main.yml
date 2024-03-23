@@ -50,10 +50,11 @@ jobs:
 
       - name: "Build, Tag, and push the Docker image"
         env:
-          IMAGE_NAME: ghcr.io/manimatter/decluttarr
+          IMAGE_NAME: ghcr.io/craggles17/decluttarr
           IMAGE_TAG: ${{ steps.setversion.outputs.new_tag }}
         run: |
-          docker build \
+          docker buildx build \
+            --platform linux/amd64,linux/arm64 \  
             --progress plain \
             -t $IMAGE_NAME:$IMAGE_TAG \
             -t $IMAGE_NAME:latest \
@@ -63,20 +64,3 @@ jobs:
             --build-arg SHORT_COMMIT_ID=$SHORT_COMMIT_ID \
             -f docker/Dockerfile \
             --push .
-
-      # - name: "Build, Tag, and push the Docker image"
-      #   env:
-      #     IMAGE_NAME: ghcr.io/manimatter/decluttarr
-      #     IMAGE_TAG: ${{ steps.setversion.outputs.new_tag }}   
-      #   run: |
-      #     docker buildx build \                         <<<<<<<<<<<<<<<<<<<<< creates manifest issues... don't know how to solve that
-      #       --platform linux/amd64,linux/arm64 \        <<<<<<<<<<<<<<<<<<<<< creates manifest issues... don't know how to solve that
-      #       --progress plain \      
-      #       -t $IMAGE_NAME:$IMAGE_TAG \
-      #       -t $IMAGE_NAME:latest \
-      #       --label com.decluttarr.version=$IMAGE_TAG \
-      #       --label com.decluttarr.commit=$SHORT_COMMIT_ID \
-      #       --build-arg IMAGE_TAG=$IMAGE_TAG \
-      #       --build-arg SHORT_COMMIT_ID=$SHORT_COMMIT_ID \
-      #       -f docker/Dockerfile \
-      #       --push .
