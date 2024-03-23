@@ -54,9 +54,8 @@ jobs:
           IMAGE_TAG: ${{ steps.setversion.outputs.new_tag }} 
         run: |
           docker buildx build \
-            --platform linux/amd64,linux/arm64 \ 
-            -f docker/Dockerfile . \
-            --progress plain \
+            --platform linux/amd64,linux/arm64 -f docker/Dockerfile .
+            # --progress plain \
             # -t $IMAGE_NAME:$IMAGE_TAG \
             # -t $IMAGE_NAME:latest \
             # --label com.decluttarr.version=$IMAGE_TAG \
