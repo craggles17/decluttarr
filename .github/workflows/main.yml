@@ -53,7 +53,8 @@ jobs:
           # IMAGE_NAME: ghcr.io/manimatter/decluttarr
           # IMAGE_TAG: ${{ steps.setversion.outputs.new_tag }}
         run: |
-          docker buildx build \
+          docker buildx build -f docker/Dockerfile . 
+          # \
             # --platform linux/amd64,linux/arm64 \  
             # --progress plain \
             # -t $IMAGE_NAME:$IMAGE_TAG \
@@ -62,6 +63,6 @@ jobs:
             # --label com.decluttarr.commit=$SHORT_COMMIT_ID \
             # --build-arg IMAGE_TAG=$IMAGE_TAG \
             # --build-arg SHORT_COMMIT_ID=$SHORT_COMMIT_ID \
-            -f docker/Dockerfile \
+            # -f docker/Dockerfile \
             # --push \
-            .
+            # .
